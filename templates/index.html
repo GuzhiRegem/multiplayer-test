@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Title</title>
-    </head>
-    <body>
-    <div id="chat"></div>
-<input type="text" id="chat-input"> <button onclick="sendMessage()">Send</button>
-    </body>
-    <script>
- function sendMessage () {
-     console.log(document.getElementById("chat-input").value)
- }
+<div id="chat"></div>
+<input id="chat-input" type="text"> <button onclick="sendMessage()">Send Message</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script>
+	socket = io()
+	function sendMessage () {
+		socket.emit("message",document.getElementById("chat-input").value)
+	}
+	socket.on("new_message",(data)=>{
+		document.getElementById("chat").innerHTML+="<br>"+data;
+	})
 </script>
-</html>
-
